@@ -71,7 +71,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/profile">
           <img
-            src={user?.avatar || avatarImg}
+            src={user?.photoURL || avatarImg}
             alt="User Avatar"
             className="w-8 h-8 rounded-full"
           />
