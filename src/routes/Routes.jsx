@@ -3,7 +3,6 @@ import Home from "../pages/Home/Home";
 import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
-import PlantDetails from "../pages/PlantDetails/PlantDetails";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddPlant from "../pages/Dashboard/Seller/AddPlant";
@@ -17,6 +16,8 @@ import MyOrders from "../pages/Dashboard/Customer/MyOrders";
 import { createBrowserRouter } from "react-router";
 import LoanAll from "../pages/LoanAll/LoanAll";
 import LoanDetails from "../components/Shared/LoanCard/LoanDetails";
+import LoanForm from "../pages/LoanAll/LoanForm";
+import BorrowerRouts from "./BorrowerRouts";
 
 export const router = createBrowserRouter([
   {
@@ -27,10 +28,6 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/plant/:id",
-        element: <PlantDetails />,
       },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
@@ -44,7 +41,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/loan-details/:id",
-        element: <PrivateRoute><LoanDetails></LoanDetails></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <LoanDetails></LoanDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/loan-form/:id",
+        element: <LoanForm></LoanForm>,
       },
     ],
   },

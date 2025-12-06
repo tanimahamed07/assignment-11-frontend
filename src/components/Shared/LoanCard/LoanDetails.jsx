@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import LoadingSpinner from "../LoadingSpinner";
 import useRole from "../../../hooks/useRole";
 
 const LoanDetails = () => {
   const { id } = useParams();
   const [role, isRoleLoading] = useRole(); // Get user's role
-
+  console.log(role);
   // Fetch loan details
   const { data: details = {}, isLoading } = useQuery({
     queryKey: ["loan-details", id],
@@ -83,16 +83,21 @@ const LoanDetails = () => {
           </div>
 
           {/* Apply Now Button */}
-          <button
-            disabled={role !== "borrower"} // Disable if not borrower
-            className={`${
-              role === "borrower"
-                ? "bg-blue-600 hover:bg-blue-700 text-white"
-                : "bg-gray-400 cursor-not-allowed text-gray-200"
-            } font-semibold px-6 py-3 rounded-lg transition-colors`}
-          >
-            Apply Now
-          </button>
+          {role === "borrower" ? (
+            <Link
+              to={`/loan-form/${id}`}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg"
+            >
+              Apply Now
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="bg-gray-400 cursor-not-allowed text-gray-200 font-semibold px-6 py-3 rounded-lg"
+            >
+              Apply Now
+            </button>
+          )}
         </div>
       </div>
     </section>
