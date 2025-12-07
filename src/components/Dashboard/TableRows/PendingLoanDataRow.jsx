@@ -1,13 +1,24 @@
 import { useState } from "react";
 import ApplicationViewDetails from "../../Modal/ApplicationViewDetailsModal";
+import axios from "axios";
 
-const PendingLoanDataRow = ({ loan }) => {
+const PendingLoanDataRow = ({ loan, refetch }) => {
   const [isViewOpen, setIsViewOpen] = useState(false);
+  const updateStatus = (status) => {
+    axios
+      .patch(`${import.meta.env.VITE_API_URL}/update-status/${loan._id}`, {
+        status,
+      })
+      .then((res) => console.log(res));
+  };
+
   const handleApprove = () => {
-    console.log("click");
+    updateStatus("Approved");
+    refetch();
   };
   const handleReject = () => {
-    console.log("click");
+    updateStatus("Rejected");
+    refetch();
   };
   const handleView = () => {
     console.log("click");
@@ -57,7 +68,10 @@ const PendingLoanDataRow = ({ loan }) => {
         </button>
 
         {/* 3. View Button */}
-        <button onClick={handleView} className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm transition duration-150">
+        <button
+          onClick={handleView}
+          className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm transition duration-150"
+        >
           View Details
         </button>
         {isViewOpen && (

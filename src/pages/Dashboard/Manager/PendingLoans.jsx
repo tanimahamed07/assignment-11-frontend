@@ -39,6 +39,7 @@ const PendingLoans = () => {
                 {pendingLoans.map((loan) => (
                   <PendingLoanDataRow
                     key={loan._id}
+                    
                     loan={loan}
                     refetch={refetch}
                   />
