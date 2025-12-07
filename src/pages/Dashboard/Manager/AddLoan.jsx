@@ -4,11 +4,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const AddLoanForm = () => {
-  // 1. useForm হুক সেটআপ
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    // 2. Comma separated string কে Array তে কনভার্ট করা
     const documentsArray = data.requiredDocuments
       ? data.requiredDocuments.split(",").map((doc) => doc.trim())
       : [];
@@ -39,7 +37,7 @@ const AddLoanForm = () => {
 
       if (res.data.insertedId || res.data.acknowledged) {
         toast.success("Loan Added Successfully!");
-        reset(); // ফর্ম রিসেট করা
+        reset(); 
       }
     } catch (err) {
       console.error("Error:", err);
