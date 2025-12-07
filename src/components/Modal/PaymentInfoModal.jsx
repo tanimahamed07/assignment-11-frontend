@@ -49,26 +49,20 @@ const PaymentDetailsModal = ({ isOpen, closeModal, myLoan }) => {
                 {/* Content */}
                 <div className="space-y-3 text-gray-700 dark:text-gray-300">
                   <p>
-                    <span className="font-semibold">Loan Title:</span> {myLoan.loanTitle}
+                    <span className="font-semibold">Payment Status:</span>{" "}
+                    {myLoan.applicationFeeStatus}
                   </p>
                   <p>
-                    <span className="font-semibold">Loan ID:</span> {myLoan.loanId}
+                    <span className="font-semibold">Transaction ID:</span>{" "}
+                    {myLoan.stripePaymentId || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold">Borrower Email:</span> {myLoan.userEmail || "N/A"}
+                    <span className="font-semibold">Email:</span>{" "}
+                    {myLoan.paymentEmail || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold">Payment Status:</span> {myLoan.applicationFeeStatus}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Transaction ID:</span> {myLoan.stripePaymentId || "N/A"}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Amount Paid:</span> $10
-                  </p>
-                  <p>
-                    <span className="font-semibold">Paid At:</span>{" "}
-                    {myLoan.paidAt ? new Date(myLoan.paidAt).toLocaleString() : "N/A"}
+                    <span className="font-semibold">Amount Paid:</span> $
+                    {myLoan.paymentAmount || 0}
                   </p>
                 </div>
 

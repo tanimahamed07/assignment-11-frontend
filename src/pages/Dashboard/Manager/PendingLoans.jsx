@@ -1,6 +1,6 @@
 import PlantDataRow from '../../../components/Dashboard/TableRows/PlantDataRow'
 
-const MyInventory = () => {
+const PendingLoans = () => {
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -67,4 +67,4 @@ const MyInventory = () => {
   )
 }
 
-export default MyInventory
+export default PendingLoans

@@ -2,13 +2,41 @@ import { useState } from "react";
 import LoanDetailsModal from "../../Modal/LoanDetailsModal";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
+import PaymentDetailsModal from "../../Modal/LoanDetailsModal";
 
 const CustomerOrderDataRow = ({ myLoan, refetch }) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
+  const { user } = useAuth();
+  console.log(myLoan);
 
-  // ---------- Cancel Loan ----------
-  const handleCancelLoan = async () => { // ✅ async added here
+  const handlePayment = async () => {
+    console.log(myLoan);
+    const paymentInfo = {
+      loanApplicationId: myLoan._id,
+      loanTitle: myLoan.loanTitle,
+      quantity: 1,
+      image: myLoan.image,
+      loanAmount: myLoan.loanAmount,
+      amount: 10,
+      currency: "usd",
+      borrower: {
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API_URL}/create-checkout-session`,
+      paymentInfo
+    );
+    window.location.href = data.url;
+    console.log(data);
+  };
+
+  const handleCancelLoan = async () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You can cancel only pending loan applications.",
@@ -100,15 +128,23 @@ const CustomerOrderDataRow = ({ myLoan, refetch }) => {
 
         {/* Pay Fee */}
         {myLoan.applicationFeeStatus === "Unpaid" ? (
-          <button className="px-3 py-1 bg-lime-600 text-white rounded text-sm">
+          <button
+            onClick={handlePayment}
+            className="px-3 py-1 bg-lime-600 text-white rounded text-sm"
+          >
             Pay $10 Fee
           </button>
         ) : (
-          <span className="text-green-600 font-semibold">Fee Paid</span>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="px-3 py-1 bg-green-600 text-white rounded text-sm"
+          >
+            Fee Paid
+          </button>
         )}
 
         {/* Modal */}
-        <LoanDetailsModal
+        <PaymentDetailsModal
           myLoan={myLoan}
           isOpen={isOpen}
           closeModal={closeModal}
