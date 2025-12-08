@@ -8,7 +8,6 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/Dashboard/Common/Profile";
 import Statistics from "../pages/Dashboard/Common/Statistics";
 import MainLayout from "../layouts/MainLayout";
-import ManageOrders from "../pages/Dashboard/Manager/ManageLoans";
 import { createBrowserRouter } from "react-router";
 import LoanAll from "../pages/LoanAll/LoanAll";
 import LoanDetails from "../components/Shared/LoanCard/LoanDetails";
@@ -20,6 +19,9 @@ import ManageLoans from "../pages/Dashboard/Manager/ManageLoans";
 import PendingLoans from "../pages/Dashboard/Manager/PendingLoans";
 import ApprovedLoans from "../pages/Dashboard/Manager/ApprovedLoans";
 import UpdateLoans from "../pages/Dashboard/Manager/UpdateLoans";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import AllLoan from "../pages/Dashboard/Admin/AllLoan";
+import LoanApplication from "../pages/Dashboard/Admin/LoanApplication";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,10 @@ export const router = createBrowserRouter([
         path: "/payment-success",
         element: <PaymentSuccess />,
       },
+      {
+        path: "update-loan/:id",
+        element: <UpdateLoans></UpdateLoans>,
+      },
     ],
   },
 
@@ -84,6 +90,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "manage-loans",
         element: (
@@ -126,12 +133,16 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "manage-orders",
-        element: <ManageOrders />,
+        path: "manage-users",
+        element: <ManageUsers />,
       },
       {
-        path: "manage-loans/update-loan/:id",
-        element: <UpdateLoans></UpdateLoans>,
+        path: "all-loan",
+        element: <AllLoan></AllLoan>,
+      },
+      {
+        path: "loan-applications",
+        element: <LoanApplication></LoanApplication>,
       },
     ],
   },
