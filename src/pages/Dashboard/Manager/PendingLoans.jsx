@@ -8,7 +8,6 @@ import PendingLoanDataRow from "../../../components/Dashboard/TableRows/PendingL
 const PendingLoans = () => {
    const {
     data: pendingLoans = [],
-    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["all-loans"],

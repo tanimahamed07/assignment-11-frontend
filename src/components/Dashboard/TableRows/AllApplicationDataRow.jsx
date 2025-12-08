@@ -1,27 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ApplicationViewDetails from "../../Modal/ApplicationViewDetailsModal";
-import axios from "axios";
 
-const PendingLoanDataRow = ({ loan, refetch }) => {
+const AllApplicationDataRow = ({ loan }) => {
+  console.log(loan);
   const [isViewOpen, setIsViewOpen] = useState(false);
-  const updateStatus = (status) => {
-    axios
-      .patch(`${import.meta.env.VITE_API_URL}/update-status/${loan._id}`, {
-        status,
-      })
-      .then((res) => console.log(res));
-  };
 
-  const handleApprove = () => {
-    updateStatus("Approved");
-    refetch();
-  };
-  const handleReject = () => {
-    updateStatus("Rejected");
-    refetch();
-  };
   const handleView = () => {
-    console.log("click");
     setIsViewOpen(true);
   };
   return (
@@ -46,27 +30,25 @@ const PendingLoanDataRow = ({ loan, refetch }) => {
 
       {/* Date */}
       <td className="px-5 py-5 border-b bg-white text-sm">
-        <p>{new Date(loan.createdAt).toLocaleDateString()}</p>
+        <span
+          className={`px-3 py-1 rounded-full text-white font-medium
+      ${
+        loan.status === "Approved"
+          ? "bg-green-500"
+          : loan.status === "Pending"
+          ? "bg-yellow-500"
+          : loan.status === "Rejected"
+          ? "bg-red-500"
+          : "bg-gray-400"
+      }
+    `}
+        >
+          {loan.status}
+        </span>
       </td>
 
-
+      {/* Actions (Manager Requirements) */}
       <td className="px-5 py-5 border-b bg-white text-sm space-x-2">
-        {/* 1. Approve Button */}
-        <button
-          onClick={handleApprove}
-          className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded text-sm transition duration-150"
-        >
-          Approve
-        </button>
-
-        {/* 2. Reject Button */}
-        <button
-          onClick={handleReject}
-          className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition duration-150"
-        >
-          Reject
-        </button>
-
         {/* 3. View Button */}
         <button
           onClick={handleView}
@@ -77,8 +59,8 @@ const PendingLoanDataRow = ({ loan, refetch }) => {
         {isViewOpen && (
           <ApplicationViewDetails
             myLoan={loan}
-            isOpen={isViewOpen} 
-            closeModal={() => setIsViewOpen(false)} 
+            isOpen={isViewOpen}
+            closeModal={() => setIsViewOpen(false)}
           />
         )}
       </td>
@@ -86,4 +68,4 @@ const PendingLoanDataRow = ({ loan, refetch }) => {
   );
 };
 
-export default PendingLoanDataRow;
+export default AllApplicationDataRow;

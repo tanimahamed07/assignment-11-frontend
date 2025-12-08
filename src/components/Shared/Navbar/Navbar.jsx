@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
-import logo from "../../../assets/images/logo-flat.png";
+import logo from "../../../assets/images/image-removebg-preview (2).png";
 import { FaMoon, FaSun } from "react-icons/fa"; // Added icons for the toggle
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -17,8 +18,7 @@ const Navbar = () => {
 
   // Load theme from localStorage and apply to HTML on component mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || 'light';
-    setTheme(savedTheme);
+    const savedTheme = localStorage.getItem("theme") || "light";
     document.querySelector("html").setAttribute("data-theme", savedTheme);
   }, []);
 
@@ -29,9 +29,6 @@ const Navbar = () => {
     document.querySelector("html").setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
   };
-  
-  // Note: There was a mismatch in the mobile input onChange handler in the original code. 
-  // We use handleThemeChange here to keep logic consistent.
 
   const handleLogout = async () => {
     try {
@@ -56,32 +53,40 @@ const Navbar = () => {
   const guestLinks = (
     <>
       <li>
-        <NavLink to="/" className={linkClass}>Home</NavLink>
+        <NavLink to="/" className={linkClass}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/all-loans" className={linkClass}>All Loans</NavLink>
+        <NavLink to="/all-loans" className={linkClass}>
+          All Loans
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/about" className={linkClass}>About Us</NavLink>
+        <NavLink to="/about-us" className={linkClass}>
+          About Us
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+        <NavLink to="/contact-us" className={linkClass}>
+          Contact
+        </NavLink>
       </li>
       {/* Login/Register as prominent buttons */}
-      <li className="hidden lg:block"> 
-        <NavLink 
-            to="/login" 
-            className="btn btn-sm text-white bg-amber-500 hover:bg-amber-600 border-none rounded-lg font-bold shadow-md"
+      <li className="hidden lg:block">
+        <NavLink
+          to="/login"
+          className="btn btn-sm text-white bg-amber-500 hover:bg-amber-600 border-none rounded-lg font-bold shadow-md"
         >
-            Login
+          Login
         </NavLink>
       </li>
       <li className="hidden lg:block">
-        <NavLink 
-            to="/signup" 
-            className="btn btn-sm text-white bg-orange-500 hover:bg-orange-600 border-none rounded-lg font-bold shadow-md"
+        <NavLink
+          to="/signup"
+          className="btn btn-sm text-white bg-orange-500 hover:bg-orange-600 border-none rounded-lg font-bold shadow-md"
         >
-            Register
+          Register
         </NavLink>
       </li>
     </>
@@ -91,13 +96,19 @@ const Navbar = () => {
   const userLinks = (
     <>
       <li>
-        <NavLink to="/" className={linkClass}>Home</NavLink>
+        <NavLink to="/" className={linkClass}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/all-loans" className={linkClass}>All Loans</NavLink>
+        <NavLink to="/all-loans" className={linkClass}>
+          All Loans
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard" className={linkClass}>Dashboard</NavLink>
+        <NavLink to="/dashboard" className={linkClass}>
+          Dashboard
+        </NavLink>
       </li>
     </>
   );
@@ -107,19 +118,18 @@ const Navbar = () => {
     <div className="bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-800 sticky top-0 z-50 transition-colors duration-300 shadow-md">
       <Container>
         <div className="navbar container mx-auto p-0 h-16">
-          
           {/* Left side: Logo */}
-          <div className="navbar-start">
-            <NavLink to="/" className="btn btn-ghost p-0">
-              <img 
-                src={logo} 
-                alt="LoanLink" 
-                className="h-8 lg:h-10" 
-              />
-              <span className="text-xl font-bold ml-2 text-gray-900 dark:text-white hidden sm:block">LoanLink</span>
+          <div className="navbar-start flex">
+            <NavLink
+              to="/"
+              className="flex items-center gap-2 hover:bg-transparent p-0"
+            >
+              <img src={logo} alt="LoanLink" className="h-[70px] w-auto" />
+              <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">
+                LoanLink
+              </span>
             </NavLink>
           </div>
-
           {/* Center: Desktop Links */}
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 space-x-2">
@@ -129,70 +139,94 @@ const Navbar = () => {
 
           {/* Right side: User Menu / Theme toggle */}
           <div className="navbar-end flex items-center space-x-2">
-            
             {/* Theme Toggle (Desktop & Mobile) */}
             <label className="swap swap-rotate text-xl text-gray-600 dark:text-gray-300">
-                <input
-                    type="checkbox"
-                    checked={theme === "dark"}
-                    onChange={handleThemeChange}
-                    className="theme-controller"
-                />
-                <FaSun className="swap-off fill-current w-5 h-5 transition-transform duration-300" />
-                <FaMoon className="swap-on fill-current w-5 h-5 transition-transform duration-300" />
+              <input
+                type="checkbox"
+                checked={theme === "dark"}
+                onChange={handleThemeChange}
+                className="theme-controller"
+              />
+              <FaSun className="swap-off fill-current w-5 h-5 transition-transform duration-300" />
+              <FaMoon className="swap-on fill-current w-5 h-5 transition-transform duration-300" />
             </label>
 
             {/* Logged in User Dropdown (Desktop & Mobile) */}
             {user?.email ? (
               <div className="dropdown dropdown-end ml-2">
                 {/* Profile Image Trigger */}
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar border-2 border-amber-500/50 hover:border-amber-500 p-0">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar border-2 border-amber-500/50 hover:border-amber-500 p-0"
+                >
                   <div className="w-10 rounded-full">
-                    <img 
-                      alt="User Avatar" 
-                      src={user?.photoURL || avatarImg} 
+                    <img
+                      alt="User Avatar"
+                      src={user?.photoURL || avatarImg}
                       referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
-                
+
                 {/* Dropdown Menu */}
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-white dark:bg-neutral-800 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg border border-gray-200 dark:border-neutral-700"
                 >
                   <li className="p-2 text-center border-b dark:border-neutral-700">
-                    <p className="font-bold text-gray-900 dark:text-white truncate">{user.displayName || 'User'}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
+                    <p className="font-bold text-gray-900 dark:text-white truncate">
+                      {user.displayName || "User"}
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                      {user.email}
+                    </p>
                   </li>
                   <li>
-                    <NavLink to="/dashboard" className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700">Dashboard</NavLink>
+                    <NavLink
+                      to="/dashboard"
+                      className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700"
+                    >
+                      Dashboard
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/profile" className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700">Profile</NavLink>
+                    <NavLink
+                      to="/dashboard/profile"
+                      className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700"
+                    >
+                      Profile
+                    </NavLink>
                   </li>
                   <li>
-                    <button onClick={handleLogout} className="text-red-500 hover:bg-red-50 dark:hover:bg-neutral-700/50">
+                    <button
+                      onClick={handleLogout}
+                      className="text-red-500 hover:bg-red-50 dark:hover:bg-neutral-700/50"
+                    >
                       Logout
                     </button>
                   </li>
                 </ul>
               </div>
             ) : (
-                // Mobile Login/Register Buttons (Visible when space is tight)
-                <div className="flex space-x-2 lg:hidden ml-2">
-                    <NavLink 
-                        to="/login" 
-                        className="btn btn-sm text-white bg-amber-500 hover:bg-amber-600 border-none rounded-lg font-bold"
-                    >
-                        Login
-                    </NavLink>
-                </div>
+              // Mobile Login/Register Buttons (Visible when space is tight)
+              <div className="flex space-x-2 lg:hidden ml-2">
+                <NavLink
+                  to="/login"
+                  className="btn btn-sm text-white bg-amber-500 hover:bg-amber-600 border-none rounded-lg font-bold"
+                >
+                  Login
+                </NavLink>
+              </div>
             )}
 
             {/* Mobile Dropdown (Hamburger Menu) */}
             <div className="dropdown dropdown-end lg:hidden ml-2">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle"
+              >
                 <AiOutlineMenu className="h-5 w-5 text-gray-700 dark:text-gray-300" />
               </div>
               <ul
@@ -202,14 +236,27 @@ const Navbar = () => {
                 {!user?.email ? guestLinks : userLinks}
                 {/* Mobile specific login/register links if not already present in userLinks */}
                 {!user?.email && (
-                    <>
-                        <li><NavLink to="/login" className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700">Login</NavLink></li>
-                        <li><NavLink to="/signup" className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700">Register</NavLink></li>
-                    </>
+                  <>
+                    <li>
+                      <NavLink
+                        to="/login"
+                        className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700"
+                      >
+                        Login
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/signup"
+                        className="dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-neutral-700"
+                      >
+                        Register
+                      </NavLink>
+                    </li>
+                  </>
                 )}
               </ul>
             </div>
-
           </div>
         </div>
       </Container>
