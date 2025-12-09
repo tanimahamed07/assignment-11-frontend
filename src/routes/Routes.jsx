@@ -24,6 +24,9 @@ import AllLoan from "../pages/Dashboard/Admin/AllLoan";
 import LoanApplication from "../pages/Dashboard/Admin/LoanApplication";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import ManagerRouts from "./ManagerRouts";
+import BorrowerRouts from "./BorrowerRouts";
+import AdminRouts from "./AdminRouts";
 
 export const router = createBrowserRouter([
   {
@@ -61,15 +64,15 @@ export const router = createBrowserRouter([
         path: "/payment-success",
         element: <PaymentSuccess />,
       },
-     
+
       {
-        path: '/about-us',
-        element: <AboutUs></AboutUs>
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
       },
       {
-        path: '/contact-us',
-        element: <ContactUs></ContactUs>
-      }
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>,
+      },
     ],
   },
 
@@ -89,7 +92,11 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-       {
+      {
+        path: "all-loan/update-loan/:id",
+        element: <UpdateLoans></UpdateLoans>,
+      },
+      {
         path: "manage-loans/update-loan/:id",
         element: <UpdateLoans></UpdateLoans>,
       },
@@ -97,7 +104,9 @@ export const router = createBrowserRouter([
         path: "add-loan",
         element: (
           <PrivateRoute>
-            <AddLoan></AddLoan>
+            <ManagerRouts>
+              <AddLoan></AddLoan>
+            </ManagerRouts>
           </PrivateRoute>
         ),
       },
@@ -106,7 +115,9 @@ export const router = createBrowserRouter([
         path: "manage-loans",
         element: (
           <PrivateRoute>
-            <ManageLoans></ManageLoans>
+            <ManagerRouts>
+              <ManageLoans></ManageLoans>
+            </ManagerRouts>
           </PrivateRoute>
         ),
       },
@@ -114,7 +125,9 @@ export const router = createBrowserRouter([
         path: "pending-loans",
         element: (
           <PrivateRoute>
-            <PendingLoans></PendingLoans>
+            <ManagerRouts>
+              <PendingLoans></PendingLoans>
+            </ManagerRouts>
           </PrivateRoute>
         ),
       },
@@ -122,7 +135,9 @@ export const router = createBrowserRouter([
         path: "approved-loans",
         element: (
           <PrivateRoute>
-            <ApprovedLoans></ApprovedLoans>
+            <ManagerRouts>
+              <ApprovedLoans></ApprovedLoans>
+            </ManagerRouts>
           </PrivateRoute>
         ),
       },
@@ -138,22 +153,43 @@ export const router = createBrowserRouter([
         path: "my-loan",
         element: (
           <PrivateRoute>
-            <MyLoan />
+            <BorrowerRouts>
+              <MyLoan />
+            </BorrowerRouts>
           </PrivateRoute>
         ),
       },
 
       {
         path: "manage-users",
-        element: <ManageUsers />,
+
+        element: (
+          <PrivateRoute>
+            <AdminRouts>
+              <ManageUsers></ManageUsers>
+            </AdminRouts>
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-loan",
-        element: <AllLoan></AllLoan>,
+        element: (
+          <PrivateRoute>
+            <AdminRouts>
+              <AllLoan></AllLoan>
+            </AdminRouts>
+          </PrivateRoute>
+        ),
       },
       {
         path: "loan-applications",
-        element: <LoanApplication></LoanApplication>,
+        element: (
+          <PrivateRoute>
+            <AdminRouts>
+              <LoanApplication></LoanApplication>
+            </AdminRouts>
+          </PrivateRoute>
+        ),
       },
     ],
   },

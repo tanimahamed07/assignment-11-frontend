@@ -12,6 +12,7 @@ import {
   FaIdCard,
   FaBuilding,
 } from "react-icons/fa";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
 const LoanForm = () => {
   const { id } = useParams();
@@ -36,14 +37,9 @@ const LoanForm = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-700 dark:text-gray-300">
-          Loading loan information...
-        </p>
-      </div>
+      <LoadingSpinner></LoadingSpinner>
     );
   }
-  console.log(loan);
 
   const onSubmit = async (data) => {
     // Check if loanAmount exceeds maxLimit

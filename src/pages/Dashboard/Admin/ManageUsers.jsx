@@ -38,7 +38,7 @@ const ManageUsers = () => {
               </thead>
 
               <tbody>
-                {users.map((user) => (
+                {users?.map((user) => (
                   <ManageUserDataRow
                     key={users._id}
                     myLoan={users}

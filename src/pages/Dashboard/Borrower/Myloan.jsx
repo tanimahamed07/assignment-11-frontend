@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import CustomerOrderDataRow from "../../../components/Dashboard/TableRows/CustomerOrderDataRow";
-import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import { useEffect } from "react";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyLoan = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: myLoans = [],
@@ -15,9 +16,7 @@ const MyLoan = () => {
   } = useQuery({
     queryKey: ["my-loans", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-loan/${user?.email}`
-      );
+      const result = await axiosSecure(`/my-loan/${user?.email}`);
       return result.data;
     },
   });
@@ -32,8 +31,8 @@ const MyLoan = () => {
       window.history.replaceState({}, document.title, "/dashboard/my-loan");
     }
   }, []);
-  if(isLoading){
-    return <LoadingSpinner></LoadingSpinner>
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   return (

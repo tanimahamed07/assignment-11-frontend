@@ -1,9 +1,10 @@
-import { useParams, useNavigate } from "react-router";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../utils";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import { useNavigate, useParams } from "react-router";
 
 const UpdateLoans = () => {
   const { id } = useParams();
@@ -29,7 +30,6 @@ const UpdateLoans = () => {
     };
     fetchLoan();
   }, [id]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,7 +64,7 @@ const UpdateLoans = () => {
         updatedData
       );
       toast.success("Loan updated successfully!");
-      navigate("/dashboard/manage-loans");
+      navigate(-1);
     } catch (err) {
       console.error(err);
       toast.error("Failed to update loan.");

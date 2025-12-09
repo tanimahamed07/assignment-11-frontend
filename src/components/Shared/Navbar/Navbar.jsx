@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
 import logo from "../../../assets/images/image-removebg-preview (2).png";
-import { FaMoon, FaSun } from "react-icons/fa"; // Added icons for the toggle
+import { FaMoon, FaSun } from "react-icons/fa"; 
 import toast from "react-hot-toast";
 
 const Navbar = () => {

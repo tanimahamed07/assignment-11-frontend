@@ -4,18 +4,19 @@ import axios from "axios";
 import { FaFileInvoiceDollar, FaCheckCircle, FaHourglassHalf } from "react-icons/fa";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const BorrowerStatistics = () => {
   const { user } = useAuth();
-
+const axiosSecure = useAxiosSecure()
   const {
     data: myLoans = [],
     isLoading,
   } = useQuery({
     queryKey: ["my-loans", user?.email],
     queryFn: async () => {
-      const result = await axios(
-        `${import.meta.env.VITE_API_URL}/my-loan/${user?.email}`
+      const result = await axiosSecure(
+        `/my-loan/${user?.email}`
       );
       return result.data;
     },
