@@ -42,22 +42,27 @@ const Feedback = () => {
     dots: true,
     infinite: true,
     speed: 600,
-    slidesToShow: 3,
+    slidesToShow: 3, // Desktop
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     arrows: false,
+
     responsive: [
       {
         breakpoint: 1024, // Tablet
         settings: {
           slidesToShow: 2,
+          arrows: false,
         },
       },
       {
-        breakpoint: 640, // Mobile = 1 Card
+        breakpoint: 640, // Mobile
         settings: {
           slidesToShow: 1,
+          arrows: false,
+          centerMode: true,
+          centerPadding: "20px", // prettier mobile look
         },
       },
     ],
@@ -87,9 +92,8 @@ const Feedback = () => {
                   border border-gray-200 dark:border-amber-400/30 
                   shadow-lg dark:shadow-[0_0_10px_rgba(251,191,36,0.15)] 
                   backdrop-blur-xl
-                  rounded-2xl p-4 sm:p-8 text-center 
-                  hover:scale-[1.02] sm:hover:scale-[1.03]
-                  transition-all duration-300
+                  rounded-2xl p-4 sm:p-8
+                  hover:scale-[1.02] transition-all duration-300
                   hover:shadow-xl dark:hover:shadow-[0_0_15px_rgba(251,191,36,0.25)]
                 "
               >
@@ -111,7 +115,7 @@ const Feedback = () => {
                 </div>
 
                 {/* Message */}
-                <p className="italic mt-3 sm:mt-4 text-gray-600 dark:text-gray-200 leading-relaxed text-sm sm:text-base text-left">
+                <p className="italic mt-3 text-gray-600 dark:text-gray-200 leading-relaxed text-sm sm:text-base text-left">
                   "{feedback.message}"
                 </p>
 

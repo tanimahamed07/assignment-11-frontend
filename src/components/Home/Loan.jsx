@@ -16,19 +16,22 @@ const Loan = () => {
 
   if (isLoading) return <LoadingSpinner />;
 
+  // Container handles stagger
   const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.1 },
+    hidden: { opacity: 1 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
     },
   };
 
+  // Each card animation
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
     },
   };
 
@@ -47,24 +50,18 @@ const Loan = () => {
 
         {/* Loans Grid */}
         <motion.div
-          className="
-    grid 
-    grid-cols-1      
-    sm:grid-cols-2     
-    lg:grid-cols-3     
-    gap-6 sm:gap-8 lg:gap-10 
-    mx-5 sm:px-0
-  "
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mx-5 sm:px-0"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.2 }} 
         >
           {loans.map((loan) => (
             <motion.div
               key={loan._id}
               variants={cardVariants}
               className="w-full"
+              viewport={{ once: false }} 
             >
               <LoanCard loan={loan} />
             </motion.div>

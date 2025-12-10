@@ -36,7 +36,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar (Mobile Header) */}
-      <div className="flex justify-between md:hidden shadow-md fixed w-full z-30 border-b">
+      <div className="flex justify-between md:hidden shadow-md bg-gray-50 fixed w-full z-30 border-b">
         <NavLink
           to="/"
           className="flex items-center gap-2 hover:bg-transparent p-0"
