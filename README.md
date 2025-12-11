@@ -17,7 +17,7 @@ This project was created for **Assignment 11 (B12-A11_category-22)** as part of 
 ---
 
 ## Live Demo
-🌐 [Live Site Link](#) <!-- Replace with your deployed URL -->
+🌐 [Live Site Link](https://lonelink1.netlify.app/) <!-- Replace with your deployed URL -->
 
 ---
 
