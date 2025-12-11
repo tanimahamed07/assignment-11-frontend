@@ -1,16 +1,72 @@
-# React + Vite
+# LoanLink – Microloan Request & Approval Tracker System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Currently, two official plugins are available:
+## Project Overview
+LoanLink is a **web-based microloan request, review, and approval management system**.  
+It helps **small financial organizations, NGOs, and microloan providers** manage loan applications, approvals, EMI schedules, and repayments in one streamlined system.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project was created for **Assignment 11 (B12-A11_category-22)** as part of a technical evaluation.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Live Demo
+🌐 [Live Site Link](#) <!-- Replace with your deployed URL -->
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key Features
+
+### Public Features
+- Modern landing page with **smooth animations**.
+- Display of **available loans** dynamically from MongoDB.
+- **Loan Details** page with apply option.
+- **Authentication** with Email/Password & Google.
+- **Responsive UI** for mobile, tablet, and desktop.
+- **Theme toggling** (Dark/Light mode).
+
+### Borrower Dashboard
+- View **My Loans** and status.
+- Apply for new loans.
+- Pay **Application Fee** via Stripe.
+- Update profile and logout.
+
+### Manager Dashboard
+- Add, manage, and update loans.
+- View **pending and approved loan applications**.
+- Search and filter loans.
+
+### Admin Dashboard
+- Manage all users (update roles, suspend accounts with reason).
+- Approve or reject loan applications.
+- Control which loans appear on Home page.
+- Full system overview with tables and stats.
+
+### Additional Features
+- Loading spinners during API calls.
+- Toast notifications for all CRUD actions.
+- 404 page for invalid routes.
+- JWT / Firebase authentication for private routes.
+- Pagination for large datasets.
+- Reusable components and modals.
+- Stripe payment info modal for paid loans.
+
+---
+
+## Tech Stack
+
+**Client:** React.js, Tailwind CSS, Framer Motion, Axios, Firebase Authentication, React Router v6  
+**Server:** Node.js, Express.js, MongoDB, Mongoose, JWT, Stripe API  
+
+**Tools & Resources:** VS Code, Postman, Git & GitHub, Clipchamp (project explanation video)
+
+---
+
+## Installation & Setup
+
+### Clone Repository
+```bash
+# Client
+git clone https://github.com/username/loanlink-client.git
+# Server
+git clone https://github.com/username/loanlink-server.git
