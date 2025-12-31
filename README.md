@@ -12,7 +12,6 @@
 LoanLink is a **web-based microloan request, review, and approval management system**.  
 It helps **small financial organizations, NGOs, and microloan providers** manage loan applications, approvals, EMI schedules, and repayments in one streamlined system.
 
-This project was created for **Assignment 11 (B12-A11_category-22)** as part of a technical evaluation.
 
 ---
 
