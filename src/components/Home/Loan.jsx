@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../Shared/LoadingSpinner";
 import LoanCard from "../Shared/LoanCard/LoanCard";
+import LoanCardSkeleton from "../Shared/LoanCard/LoanCardSkeleton";
 
 const Loan = () => {
   const { data: loans = [], isLoading } = useQuery({
@@ -14,15 +15,25 @@ const Loan = () => {
     },
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) {
+    return (
+      <section className="py-16">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <LoanCardSkeleton key={i} />
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   // এনিমেশন ভেরিয়েন্ট
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.15, 
+      transition: {
+        staggerChildren: 0.15,
       },
     },
   };
@@ -37,12 +48,11 @@ const Loan = () => {
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-transparent transition-colors duration-500">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section className=" bg-transparent transition-colors duration-500">
+      <div className="container mx-auto px-4">
         {/* --- Section Header: টাইটেল ও স্পেসিং ঠিক করা হয়েছে --- */}
         <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,27 +60,26 @@ const Loan = () => {
           >
             Available <span className="text-amber-500">Loans</span>
           </motion.h2>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: "80px" }}
             viewport={{ once: true }}
             className="h-1.5 bg-amber-500 mx-auto rounded-full mt-4 mb-6"
           />
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-400 font-medium leading-relaxed"
+            className="text-base sm:text-lg text-gray-600 dark:text-gray-200 font-medium leading-relaxed"
           >
-            Explore our top microloan options tailored to your business and personal needs. 
-            Simple application, instant approval.
+            Explore our top microloan options tailored to your business and
+            personal needs. Simple application, instant approval.
           </motion.p>
         </div>
 
-        {/* --- Loans Grid: রেসপনসিভ কলাম এবং গ্যাপ ফিক্স --- */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -85,12 +94,12 @@ const Loan = () => {
               className="flex justify-center h-full"
             >
               <div className="w-full max-w-sm sm:max-w-none">
-                 <LoanCard loan={loan} />
+                <LoanCard loan={loan} />
               </div>
             </motion.div>
           ))}
         </motion.div>
-        
+
         {/* লোন না থাকলে একটি মেসেজ (Optional) */}
         {loans.length === 0 && (
           <div className="text-center py-20 text-gray-500 italic">

@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules"; // ✅ Correct import for Swiper v10+
-
+import { Autoplay, Pagination } from "swiper/modules";
+import { motion } from "framer-motion"; 
 import { FaStar, FaShareSquare } from "react-icons/fa";
 
 // Import Swiper styles
@@ -45,14 +45,34 @@ const Feedback = () => {
   return (
     <section className="py-12 text-base-content transition-colors duration-300">
       {/* Title */}
-      <div className="text-center mb-10">
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
-          Customer Feedback
-        </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-          What our clients say about us
-        </p>
-      </div>
+    <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
+  <motion.h2
+    initial={{ opacity: 0, y: -10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 dark:text-white"
+  >
+    Voices of <span className="text-amber-500">Trust</span>
+  </motion.h2>
+
+  <motion.div
+    initial={{ width: 0 }}
+    whileInView={{ width: "80px" }}
+    viewport={{ once: true }}
+    className="h-1.5 bg-amber-500 mx-auto rounded-full mt-4 mb-6"
+  />
+
+  <motion.p
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+    transition={{ delay: 0.2 }}
+    className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium leading-relaxed"
+  >
+    Hear from our community of borrowers who have successfully scaled their 
+    businesses and met financial needs through LoanLink's seamless process.
+  </motion.p>
+</div>
 
       <div className="container mx-auto px-2 sm:px-4">
         <Swiper

@@ -45,7 +45,7 @@ const HeroBanner = () => {
         <div className="absolute bottom-0 left-[10%] w-64 h-64 bg-orange-600/10 blur-[100px] rounded-full" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-6">
           {/* Left Content */}
           <div className="w-full lg:w-7/12 text-center lg:text-left z-10">

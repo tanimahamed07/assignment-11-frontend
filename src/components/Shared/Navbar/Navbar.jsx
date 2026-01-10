@@ -65,7 +65,7 @@ const Navbar = () => {
           {/* Desktop Links - Polished Center Navigation */}
           <div className="navbar-center hidden lg:flex">
             <ul className="flex items-center gap-2 px-1">
-              {["Home", "All Loans", "About Us", "Contact"].map((item) => {
+              {["Home", "All Loans", "About Us", "Contact", "Dashboard"].map((item) => {
                 const path = item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`;
                 return (
                   <li key={item}>

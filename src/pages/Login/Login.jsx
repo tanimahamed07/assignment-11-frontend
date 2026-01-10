@@ -59,10 +59,9 @@ const Login = () => {
     }
   };
 
-  // --- InputField component definition has been removed ---
+
 
   return (
-    // Main Container with dark mode background
     <div className="bg-base-100 dark:bg-base-300 min-h-screen flex items-center justify-center py-12 px-4 transition-colors duration-300">
       <div
         className="
