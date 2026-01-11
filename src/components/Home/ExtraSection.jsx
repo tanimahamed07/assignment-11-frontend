@@ -86,7 +86,7 @@ const ExtraSections = () => {
       </section>
 
       {/* Section 2: Why Choose Us */}
-      <section className="text-base-content pb-10">
+      <section className=" text-base-content pb-10 mb-12">
         <div className="container mx-auto px-4">
           {/* Animated Header Section (Matched) */}
           <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">

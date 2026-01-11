@@ -63,7 +63,7 @@ const HeroBanner = () => {
               </motion.h1>
 
               <motion.p
-                className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
+                className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
                 transition={{ delay: 0.2 }}
               >
                 No paperwork. No waiting. Apply in 2 minutes, get approved in

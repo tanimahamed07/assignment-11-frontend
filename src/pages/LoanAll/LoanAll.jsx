@@ -1,98 +1,118 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 import LoanCard from "../../components/Shared/LoanCard/LoanCard";
 
 const LoanAll = () => {
-  const { data: allLoans = [], isLoading } = useQuery({
-    queryKey: ["all-loans"],
+  const searchRef = useRef(null);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("newest");
+  const [page, setPage] = useState(1);
+  const limit = 8;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["all-loans", search, sort, page],
     queryFn: async () => {
-      const result = await axios(`${import.meta.env.VITE_API_URL}/loans`);
-      return result.data;
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/loans`,
+        {
+          params: { search, sort, page, limit },
+        }
+      );
+      return data;
     },
   });
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(searchRef.current.value);
+    setPage(1);
+  };
+
+  const loans = data?.loans || [];
+  const totalPages = data?.totalPages || 1;
 
   if (isLoading) return <LoadingSpinner />;
 
-  // Container: handles stagger
-  const containerVariants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1, // Faster stagger
-        delayChildren: 0.05, // Reduced delay
-      },
-    },
-  };
-
-  // Cards Animation: Optimized fade-up
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 }, // Reduced lift (y)
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeInOut" }, // Faster, smoother duration and ease
-    },
-  };
-
   return (
-    <section className="py-12">
-      <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 dark:text-white"
-          >
-            All Available <span className="text-amber-500">Loans</span>
+    <section className="py-12 min-h-screen">
+      <div className="container mx-auto px-4 mb-10">
+        {/* Header Section */}
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <motion.h2 className="text-3xl sm:text-5xl font-black text-gray-900 dark:text-white mb-4">
+            Available <span className="text-amber-500">Loans</span>
           </motion.h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "80px" }}
-            viewport={{ once: true }}
-            className="h-1.5 bg-amber-500 mx-auto rounded-full mt-4 mb-6"
-          />
-
-          {/* ডেসক্রিপশন এনিমেশন */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-200 font-medium leading-relaxed"
-          >
-            Explore our all microloan options tailored to your business and
-            personal needs. Simple application, instant approval.
-          </motion.p>
+          <div className="h-1.5 bg-amber-500 w-20 mx-auto rounded-full mb-6" />
         </div>
 
-        {/* Loans Grid - Optimized for ONE-TIME Scroll Animation */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          // *** THE KEY FIX IS HERE ***
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 px-5 sm:px-0"
-        >
-          {allLoans.map((loan) => (
-            <motion.div
-              key={loan._id}
-              variants={cardVariants}
-              className="w-full"
-              // *** Removed viewport prop from here as it's redundant and conflicting ***
+        {/* Filters & Search Bar */}
+        <div className="bg-white dark:bg-neutral-900 p-6 rounded-3xl shadow-xl mb-12 border border-gray-100 dark:border-neutral-800 flex flex-col lg:flex-row gap-4 items-center justify-between">
+          {/* Search */}
+          <form onSubmit={handleSearch} className="w-full lg:max-w-xs">
+            <input
+              type="text"
+              placeholder="Search by loan title..."
+              ref={searchRef}
+              className="w-full px-5 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-transparent outline-none focus:border-amber-500 transition-all dark:text-white"
+            />
+          </form>
+          {/* <input
+            type="text"
+            placeholder="Search by loan title..."
+            className="w-full lg:max-w-xs px-5 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-transparent outline-none focus:border-amber-500 transition-all dark:text-white"
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
+          /> */}
+
+          <div className="flex flex-wrap gap-4 w-full lg:w-auto">
+            {/* Sort Filter */}
+            <select
+              className="px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-transparent outline-none focus:border-amber-500 dark:text-white cursor-pointer"
+              onChange={(e) => setSort(e.target.value)}
             >
-              <LoanCard loan={loan} />
-            </motion.div>
-          ))}
-        </motion.div>
+              <option value="newest">Newest First</option>
+              <option value="lowToHigh">Limit: Low to High</option>
+              <option value="highToLow">Limit: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Loans Grid */}
+        {loans.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {loans.map((loan) => (
+              <LoanCard key={loan._id} loan={loan} />
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-20 text-gray-500">No loans found.</div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-16 gap-2">
+            {[...Array(totalPages)].map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setPage(i + 1)}
+                className={`px-5 py-2 rounded-xl font-bold transition-all ${
+                  page === i + 1
+                    ? "bg-amber-500 text-white shadow-lg"
+                    : "bg-gray-100 dark:bg-neutral-800 dark:text-gray-400 hover:bg-amber-100"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
