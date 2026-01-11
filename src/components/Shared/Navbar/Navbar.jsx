@@ -60,7 +60,7 @@ const Navbar = () => {
           <div className="navbar-start">
             <NavLink to="/" className="flex items-center gap-2 group">
               <img src={logo} alt="Logo" className="h-10 sm:h-12 w-auto transition-transform group-hover:scale-105" />
-              <span className="text-xl sm:text-2xl font-black tracking-tighter bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+              <span className="text-2xl font-black bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent tracking-tight">
                 LoanLink
               </span>
             </NavLink>
